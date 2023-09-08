@@ -32,4 +32,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: blinqas/github_runner:latest, blinqas/github_runner:${{ github.sha }}
