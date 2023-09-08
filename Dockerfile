@@ -14,7 +14,7 @@ RUN apt-get update && apt install -y apt-transport-https software-properties-com
     apt-get update && \
     apt install -y powershell
 
-# Install .NET 6 and .NET 7 SDK
+# Install .NET 6 and .NET 7 runtimes
 RUN apt install -y dotnet-runtime-6.0 && \
     apt install -y dotnet-runtime-7.0
 
