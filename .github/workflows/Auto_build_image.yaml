@@ -3,7 +3,7 @@ name: Build and Push Custom Docker Image
 on:
   push:
     branches:
-      - master 
+      - main 
   schedule:
     # Run every Sunday at 12:00 UTC
     - cron: '0 12 * * 0'
@@ -11,7 +11,7 @@ on:
 
 jobs:
   push_to_registries:
-    name: Push Docker image to multiple registries
+    name: Build and push container image
     runs-on: ubuntu-latest
     permissions:
       packages: write
