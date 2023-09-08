@@ -1,0 +1,43 @@
+name: Build and Push Custom Docker Image
+
+on:
+  push:
+    branches:
+      - trunk
+    paths:
+      - 'Dockerfile'  # Trigger when changes are made to this specific file  
+
+  schedule:
+    # Run every Sunday at 12:00 UTC
+    - cron: '0 12 * * 0'
+  workflow_dispatch:  #Allows manual trigger
+
+jobs:
+  push_to_registries:
+    name: Build and push container image
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      
+      - name: Run image validation script
+        run: |
+          chmod +x image_validation.sh
+          ./image_validation.sh
+      
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push images
+        run: |
+          docker build -t ghcr.io/blinqas/github_runner:latest . 
+          docker tag ghcr.io/blinqas/github_runner:latest ghcr.io/blinqas/github_runner:${{ github.sha }}
+          docker push ghcr.io/blinqas/github_runner:${{ github.sha }}
+          docker push ghcr.io/blinqas/github_runner:latest
