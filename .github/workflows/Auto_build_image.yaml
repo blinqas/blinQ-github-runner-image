@@ -1,6 +1,9 @@
 name: Build and Push Custom Docker Image
 
 on:
+  push:
+    branches:
+      - master 
   schedule:
     # Run every Sunday at 12:00 UTC
     - cron: '0 12 * * 0'
