@@ -9,6 +9,7 @@
   - [What's Installed 🛠️](#whats-installed-️)
   - [Example deployment using The Image on Azure Container App 🚀](#example-deployment-using-the-image-on-azure-container-app-)
     - [Environment Variables 🔐](#environment-variables-)
+  - [Github Token Scope](#github-token-scope)
 
 ## Introduction 📚
 
@@ -100,3 +101,17 @@ The following environment variables should be set if you want to setup the runne
 - ORG_NAME: GitHub organization name where the runner will be registered.
 
 You can find the full list of environment variables in [here](https://github.com/myoung34/docker-github-actions-runner)
+
+## Github Token Scope
+
+Creating GitHub personal access token (PAT) for using by self-hosted runner make sure the following scopes are selected:
+
+- repo (all)
+- admin:org (all) (mandatory for organization-wide runner)
+- admin:enterprise (all) (mandatory for enterprise-wide runner)
+- admin:public_key - read:public_key
+- admin:repo_hook - read:repo_hook
+- admin:org_hook
+- notifications
+- workflow
+
